@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteBase /
+</IfModule>
+
+ServerSignature Off
+AddDefaultCharset UTF-8
+
+DirectoryIndex index.php
+
+ErrorDocument 404 /error.php
+ErrorDocument 400 /error.php
+
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME}\.php -f
+#RewriteRule ^(.*)$ $1.php [L]
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php/$l [L]

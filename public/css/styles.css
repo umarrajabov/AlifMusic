@@ -1,0 +1,61 @@
+nav {
+  position: fixed;
+  display: inline-block;
+  height: 100vh;
+  max-width: 20%;
+  padding: 30px 20px;
+  background-color: var(--dark);
+}
+
+nav ul.navbar {
+  align-items: baseline;
+  flex-direction: column;
+}
+
+nav ul.navbar li {
+  display: block;
+  width: 100%;
+}
+
+nav ul.navbar li a {
+  display: block;
+  margin-top: 20px;
+  border-radius: 30px;
+  border: 2px solid #ddd;
+  color: #ddd;
+  padding: .65em .75em;
+}
+
+.auth {
+  display: flex;
+  align-items: center;
+}
+
+.auth span {
+  display: inline-block;
+  margin: 0 10px;
+  width: 2px;
+  background-color: #ddd;
+  height: 100%;
+}
+
+.content {
+  width: 80%;
+  margin-left: auto;
+}
+
+.content .col {
+  margin-right: 50px;
+}
+
+.state {
+  text-transform: capitalize;
+}
+
+
+.btn-send {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+

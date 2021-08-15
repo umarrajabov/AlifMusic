@@ -1,0 +1,22 @@
+{
+    "name": "admin/alif.music",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/",
+            "core\\": "core",
+            "security\\": "security"
+        }
+    },
+    "authors": [
+        {
+            "name": "SaidkhojaIfitkhor",
+            "email": "saidkhojaiftikhor2002@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "symfony/var-dumper": "^5.3"
+    },
+    "require": {
+        "psr/http-message": "^1.0"
+    }
+}
