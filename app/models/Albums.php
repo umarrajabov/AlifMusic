@@ -82,7 +82,7 @@ class Albums implements Crud
 
     public function getAll(): array
     {
-        $query = "SELECT * FROM albums";
+        $query = "SELECT * FROM albums WHERE is_active = 1";
         $statement = (new DB())->connect()->prepare($query);
         $statement->execute();
         return $statement->fetchAll();
@@ -90,21 +90,39 @@ class Albums implements Crud
 
     public function getById($id)
     {
-        // TODO: Implement getById() method.
+        $query = "SELECT * FROM `albums` WHERE id = $id";
+        $statement = (new DB())->connect()->prepare($query);
+        $statement->execute();
+        return $statement->fetch();   
+    }
+
+    public function delete($id)
+    {
+        $row = $this->getById($id);
+        $bool = filter_var($row['is_active'], FILTER_VALIDATE_BOOLEAN);
+        $isActive = $bool ? 0 : 1;
+
+        $query = "UPDATE `albums` SET `is_active` = :isActive WHERE `id` = :id";
+        $statement = (new DB)->connect()->prepare($query);
+        $statement->bindValue(':id', $id);
+        $statement->bindValue(':isActive', (int)$isActive);
+        $statement->execute();
+        header('Location: http://music.loc/statistics/albums');
     }
 
     public function save()
     {
         if (isset($_POST['submit'])) {
-            $validator = new Validator($_POST);
+            $validator = new Validator($_POST, $_FILES);
             $errors = $validator->validate(
                 ['name', 'string', 'required'],
-                ['year', 'number', 'required']
+                ['year', 'number', 'required'],
+                ['image', 'image', 'required']
             );
 
-            $this->setValues();
-
+            
             if (empty($errors)) {
+                $this->setValues();
                 $sql = "INSERT INTO albums(`name`, `year`, `author_id`)";
                 $sql .= " VALUES(:name, :year, :author)";
                 $statement = (new DB)->connect()->prepare($sql);
@@ -118,11 +136,6 @@ class Albums implements Crud
         }
     }
 
-    public function delete($id)
-    {
-        
-    }
-
     public function update($id)
     {
         $errors = [];
@@ -134,19 +147,19 @@ class Albums implements Crud
         $row = $statement->fetch();
 
         if (isset($_POST['submit'])) {
-            $validator = new Validator($_POST);
+            $validator = new Validator($_POST, $_FILES);
             $errors = $validator->validate(
                 ['name', 'string', 'required'],
-                ['year', 'number', 'required']
+                ['year', 'number', 'required'],
             );
 
-            $this->setValues();
-
+            
             if (!empty($_FILES['image']) && !$_FILES['image']['tmp_name']) {
                 $this->setImage($row['photo']);
             }
-
+            
             if (empty($errors)) {
+                $this->setValues();
                 $sql = "UPDATE `albums` SET name =:name, author_id = :author, ";
                 $sql .= "year = :year, photo = :image WHERE id = :id";
                 $statement = (new DB)->connect()->prepare($sql);

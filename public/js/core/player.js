@@ -67,15 +67,17 @@ for (let i = 0; i < musics.length; i++) {
     musicImage.src = this.getAttribute('data-image');
     track.src = this.getAttribute('data-id');
 
-    download.href = this.getAttribute('data-id');
-
+    
     track.load();
     track.play();
-
+    
     if (playing) {
       track.play();
     } else {
       track.pause();
+    }
+    if (download != null) {
+      download.href = this.getAttribute('data-id');
     }
   };
 }

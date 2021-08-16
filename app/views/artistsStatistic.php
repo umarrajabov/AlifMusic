@@ -11,15 +11,16 @@
     <table class="table">
         <thead>
             <tr class="bg-dark text-white">
-                <th scope="col">id</th>
+                <th scope="col">№</th>
                 <th scope="col">Album</th>
                 <th scope="col">actions</th>
+                <th scope="col">id</th>
             </tr>
         </thead>
-        <?php foreach ($data as $datium) : ?>
+        <?php foreach ($data as $key => $datium) : ?>
             <tbody>
                 <tr>
-                    <th scope="row"><?= $datium['id'] ?></th>
+                    <th scope="row"><?= $key + 1 ?></th>
                     <td><?= $datium['name'] ?></td>
                     <td>
                         <?php if ($datium['is_active']) : ?>
@@ -29,6 +30,7 @@
                         <?php endif; ?>
                         <a href="/admin/update<?= '/' . $datium['id'] . '/artists'  ?>" class="btn btn-success">Edit</a>
                     </td>
+                    <th scope="row"><?= $datium['id'] ?></th>
                 </tr>
             </tbody>
         <?php endforeach; ?>

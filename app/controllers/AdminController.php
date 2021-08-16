@@ -61,6 +61,10 @@ class AdminController
                 (new Artists)->delete($id);
                 break;
             
+            case 'albums':
+                (new Albums)->delete($id);
+                break;
+
             case 'users':
                 (new Admin)->delete($id);
                 break;

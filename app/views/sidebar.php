@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li>
-                <a href="music/albums">
+                <a href="/music/albums">
                     <i class="fas fa-music"></i>
                     <span>Albums</span>
                 </a>
@@ -26,12 +26,12 @@
                     <span>Artists</span>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="/music/search">
                     <i class="fas fa-search"></i>
                     <span>Search</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
         <small>Your collection</small>
         <ul class="sidebar_menu">

@@ -1,11 +1,11 @@
 <div class="main__content">
-    <div class="main_header">
+    <div class="ml-4     main_header row align-items-center">
         <h1 class="header_title">
             Last posts
         </h1>
-        <!-- <form action="" action="">
+        <form class="form w-50">
             <input placeholder="type to search" id="searchField" type="text" style="width: 70%" class="form-control mt-4 m-auto" />
-        </form> -->
+        </form>
     </div>  
     <div class="main__container" id="content" style="justify-content: flex-start">
         <?php foreach ($data['musics'] as $music) : ?>

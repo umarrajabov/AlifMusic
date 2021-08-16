@@ -5,11 +5,13 @@ namespace security;
 class Validator
 {
     private array $data;
+    public array $files;
     public array $errors = [];
 
-    public function __construct($data)
+    public function __construct($data, $files = [])
     {
         $this->data = $data;
+        $this->files = $files;
     }
 
     public function validate(...$actions): array
@@ -32,8 +34,11 @@ class Validator
                     case 'string':
                         $this->validateString($value[0]);
                         break;
-                    default:
-
+                    case 'image':
+                        $this->validateImage();
+                        break;
+                    case 'music':
+                        $this->validateMusic();
                         break;
                 }
             }
@@ -76,7 +81,7 @@ class Validator
     {
         if ($value = $this->required($key)) {
             if (!(int)preg_match('/^[0-9]+$/', $value)) {
-                $this->addError($key, "$key Должен быть ");
+                $this->addError($key, "$key must be numeric");
             }
         }
     }
@@ -98,6 +103,26 @@ class Validator
             return false;
         }
         return $value;
+    }
+
+    private function validateImage()
+    {
+        $types = ['image/jfif', 'image/png', 'image/jpg', 'image/jpeg'];
+        $fileType = $this->files['image']['type'];
+
+        if (!in_array($fileType, $types)) {
+            $this->addError('image', 'Image format not supported!');
+        }
+    }
+
+    private function validateMusic()
+    {
+        $types = ['audio/mpeg', 'audio/mp3', 'audio/ogg'];
+        $fileType = $this->files['music']['type'];
+
+        if (!in_array($fileType, $types)) {
+            $this->addError('music', 'Music format not supported!');
+        }
     }
 
     private function addError($key, $value)

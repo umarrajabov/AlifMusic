@@ -13,19 +13,28 @@
     <table class="table">
         <thead>
             <tr class="bg-dark text-white">
-                <th scope="col">id</th>
-                <th scope="col">title</th>
+                <th scope="col">№</th>
+                <th scope="col">Title</th>
+                <th scope="col">Year</th>
                 <th scope="col">actions</th>
+                <th scope="col">id</th>
             </tr>
         </thead>
-        <?php foreach ($data as $datium) : ?>
+        <?php foreach ($data as $key => $datium) : ?>
             <tbody>
                 <tr>
-                    <th scope="row"><?= $datium['id'] ?></th>
+                    <th scope="row"><?= $key + 1 ?></th>
                     <td><?= $datium['name'] ?></td>
+                    <td><?= $datium['year'] ?></td>
                     <td>
+                        <?php if ($datium['is_active']) : ?>
+                            <a href="/admin/delete<?= '/' . $datium['id'] . '/albums' ?>" class="btn btn-secondary">InActive</a>
+                        <?php else : ?>
+                            <a href="/admin/delete<?= '/' . $datium['id'] . '/albums' ?>" class="btn btn-primary">Active</a>
+                        <?php endif; ?>
                         <a href="/admin/update<?= '/' . $datium['id'] . '/albums'  ?>" class="btn btn-success">Edit</a>
                     </td>
+                    <td scope="row"><?= $datium['id'] ?></td>
                 </tr>
             </tbody>
         <?php endforeach; ?>

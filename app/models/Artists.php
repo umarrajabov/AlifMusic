@@ -106,13 +106,13 @@ class Artists implements Crud
                 ['name', 'string', 'required'],
             );
 
-            $this->setValues();
-
+            
             if (!empty($_FILES['image']) && !$_FILES['image']['tmp_name']) {
                 $this->setImage($row['avatar']);
             }
-
+            
             if (empty($errors)) {
+                $this->setValues();
                 $sql = "UPDATE `authors` SET name =:name, bio = :bio, ";
                 $sql .= " avatar = :image WHERE id = :id";
                 $statement = (new DB)->connect()->prepare($sql);
@@ -133,11 +133,12 @@ class Artists implements Crud
             $validator = new Validator($_POST);
             $errors = $validator->validate(
                 ['name', 'string', 'required'],
+                ['image', 'image', 'required'],
             );
 
-            $this->setValues();
-
+            
             if (empty($errors)) {
+                $this->setValues();
                 $sql = "INSERT INTO `authors`(`name`, `bio`, `avatar`)";
                 $sql .= " VALUES(:name, :bio, :image)";
                 $statement = (new DB)->connect()->prepare($sql);

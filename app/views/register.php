@@ -51,5 +51,4 @@
     </fieldset>
   </form>
 </div>
-<script src="/public/js/core/signup.js"></script>
 <?php include_once "templates/footer.php" ?>

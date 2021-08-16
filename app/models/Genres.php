@@ -45,7 +45,10 @@ class Genres implements Crud
 
     public function getAll()
     {
-        // TODO: Implement getAll() method.
+        $query = "SELECT * FROM `genres` ORDER BY id DESC";
+        $stmt = (new DB)->connect()->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
     public function getById($id)

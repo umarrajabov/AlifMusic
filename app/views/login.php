@@ -40,5 +40,4 @@
     </fieldset>
   </form>
 </div>
-<script src="/public/js/core/signin.js"></script>
 <?php include_once "templates/footer.php" ?>

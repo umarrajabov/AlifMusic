@@ -4,6 +4,11 @@
 <div class="main__content">
     <div class="container w-75 mt-3">
         <h1 class="mb-4">Добавить Артист</h1>
+        <?php if ($data['errors']['image']): ?>
+        <div class="alert alert-danger">
+            <?= $data['errors']['image'];?>
+        </div>
+        <?php endif; ?>
         <form action="" method="post" class="form" enctype="multipart/form-data">
             <div class="mb-3">
                 <label>Имя</label>

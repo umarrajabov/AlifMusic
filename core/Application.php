@@ -3,6 +3,7 @@
 
 namespace core;
 
+use Error;
 use ErrorException;
 
 class Application
@@ -20,11 +21,10 @@ class Application
         $controller = (empty($pathParts[1])) ? 'site' : $pathParts[1];
         $action = (empty($pathParts[2])) ? 'index' : $pathParts[2];
 
-        $controller = "app\controllers\\" . ucfirst($controller) . 'Controller';
+        $controller = "app\\controllers\\" . ucfirst($controller) . 'Controller';
         $action = "action" . ucfirst($action);
         $action = explode('?', $action);
         $action = $action[0];
-
 
         if (!class_exists($controller)){
             View::render('_404');

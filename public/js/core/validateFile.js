@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const fileName = evt.target.name;
     switch (fileName) {
       case 'image':
-        state.whiteList = ['png', 'jpg', 'jpeg']
+        state.whiteList = ['png', 'jpg', 'jpeg', 'jfif']
         break;
 
       case 'music':

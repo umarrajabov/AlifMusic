@@ -8,21 +8,26 @@ class Admin
 {
   public function check()
   {
-    if (!empty($_SESSION) && !$_SESSION['role'] == '1') {
-      header('Location: /');
-      return false;
+    if (isset($_SESSION['name']) && ($_SESSION['role'] == '1')) {
+      return true;
     }
     
-    return true;
+    return false;
   }
+
+  public function __construct()
+  {
+      if (!$this->check()) {
+          header("Location: /");
+      }
+  }
+
   public function getAll($param)
   {
-    if ($this->check()) {
       $query = "SELECT * FROM `${param}` ORDER BY id DESC";
       $stmt = (new DB)->connect()->prepare($query);
       $stmt->execute();
       return $stmt->fetchAll();
-    }
   }
 
   

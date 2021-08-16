@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\Admin;
+use app\models\Genres;
 use app\models\Music;
 use core\View;
 
@@ -10,7 +10,7 @@ class SiteController
 {
     public function actionIndex()
     {
-        $genres = (new Admin)->getAll('genres');
+        $genres = (new Genres)->getAll();
         $data = (new Music)->getAll();
         View::render('index', ['musics' => $data, 'genres' => $genres]);
     }

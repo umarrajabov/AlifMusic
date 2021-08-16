@@ -12,19 +12,21 @@
     <table class="table">
         <thead>
             <tr class="bg-dark text-white">
-                <th scope="col">id</th>
+                <th scope="col">№</th>
                 <th scope="col">genre</th>
                 <th scope="col">actions</th>
+                <th scope="col">id</th>
             </tr>
         </thead>
-        <?php foreach ($data as $datium) : ?>
+        <?php foreach ($data as $key => $datium) : ?>
             <tbody>
                 <tr>
-                    <th scope="row"><?= $datium['id'] ?></th>
+                    <th scope="row"><?= $key + 1 ?></th>
                     <td><?= $datium['genre'] ?></td>
                     <td>
                         <a href="/admin/update<?= '/' . $datium['id'] . '/genres'  ?>" class="btn btn-success">Edit</a>
                     </td>
+                    <td scope="row"><?= $datium['id'] ?></td>
                 </tr>
             </tbody>
         <?php endforeach; ?>

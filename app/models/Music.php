@@ -196,22 +196,23 @@ class Music implements Crud
         $row = $statement->fetch();
 
         if (isset($_POST['submit'])) {
-            $validator = new Validator($_POST);
+            $validator = new Validator($_POST, $_FILES);
             $errors = $validator->validate(
                 ['title', 'string', 'required'],
+                ['image', 'image'],
             );
 
-            $this->setValues();
-
+            
             if (!empty($_FILES['image']) && !$_FILES['image']['tmp_name']) {
                 $this->setImage($row['music_image']);
-            }
-
+            }   
+            
             if (!empty($_FILES['music']) && !$_FILES['music']['tmp_name']) {
                 $this->setSrc($row['src']);
             }
-
+            
             if (empty($errors)) {
+                $this->setValues();
                 $sql = "UPDATE `musics` SET title =:title, album_id = :album, ";
                 $sql .= "genre_id = :genre, author_id = :author, src = :src, music_image = :image WHERE id = :id";
                 $statement = (new DB)->connect()->prepare($sql);
@@ -232,22 +233,25 @@ class Music implements Crud
     public function save()
     {
         if (isset($_POST['submit'])) {
-            $validator = new Validator($_POST);
+            $validator = new Validator($_POST, $_FILES);
             $errors = $validator->validate(
                 ['title', 'string', 'required'],
+                ['image', 'image', 'required'],
+                ['music', 'music', 'required'],
             );
 
-            $this->setValues();
-
+            
             if (empty($errors)) {
-                $sql = "INSERT INTO musics(`title`, `album_id`, `genre_id`, `author_id`, `src`, `music_image`)";
-                $sql .= " VALUES(:title, :album, :genre, :author, :src, :image)";
+                $this->setValues();
+                $sql = "INSERT INTO musics(`title`, `album_id`, `genre_id`, `author_id`, `src`, `length`,`music_image`)";
+                $sql .= " VALUES(:title, :album, :genre, :author, :src, :length, :image)";
                 $statement = (new DB)->connect()->prepare($sql);
                 $statement->bindValue(':title', $this->getTitle());
                 $statement->bindValue(':album', $this->getAlbum());
                 $statement->bindValue(':genre', $this->getGenre());
                 $statement->bindValue(':author', $this->getAuthor());
                 $statement->bindValue(':src', $this->getSrc());
+                $statement->bindValue(':length', $this->getLength());
                 $statement->bindValue(':image', $this->getImage());
                 $statement->execute();
                 header('Location: http://music.loc/admin/index');
@@ -262,6 +266,7 @@ class Music implements Crud
         $this->setAlbum($_POST['album']);
         $this->setGenre($_POST['genre']);
         $this->setAuthor($_POST['author']);
+        $this->setLength($_POST['length']);
         $this->setSrc($_FILES['music']['name']);
         $this->setImageFile();
 
